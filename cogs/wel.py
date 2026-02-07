@@ -62,18 +62,7 @@ class GNCommands(commands.Cog):
                         color=discord.Color.green()
                     )
 
-                    status_embed.add_field(
-                        name=f"{theme.pinIcon} Community & Support",
-                        value=(
-                            f"**GitHub Repository:** [Whiteout Project](https://github.com/whiteout-project/bot)\n"
-                            f"**Discord Community:** [Join our Discord](https://discord.gg/apYByj6K2m)\n"
-                            f"**Bug Reports:** [GitHub Issues](https://github.com/whiteout-project/bot/issues)\n"
-                            f"{theme.lowerDivider}"
-                        ),
-                        inline=False
-                    )
-
-                    status_embed.set_footer(text="Thanks for using the bot! Maintained with ❤️ by the WOSLand Bot Team.")
+                    status_embed.set_footer(text="# DANGER Discord Bot\n\n\" DC : DANGER_600 \"❤️\n:$")
 
                     await admin_user.send(embed=status_embed)
 
@@ -112,7 +101,7 @@ class GNCommands(commands.Cog):
                                 settings = cursor.fetchone()
                                 if settings:
                                     if settings[0]:
-                                        info_parts.append(f"{theme.announceIcon} Channel: <#{settings[0]}>")
+                                        info_parts.append(f"{theme.announceIcon} Channel: <#{settings[0]}>\n")
                                     interval_text = f"{theme.timeIcon} Auto Check: {settings[1]} minutes" if settings[1] > 0 else f"{theme.timeIcon} No Auto Check"
                                     info_parts.append(interval_text)
                             
@@ -126,7 +115,7 @@ class GNCommands(commands.Cog):
                                 cursor.execute("SELECT channel_id FROM giftcode_channel WHERE alliance_id = ?", (alliance_id,))
                                 gift_channel = cursor.fetchone()
                                 if gift_channel and gift_channel[0]:
-                                    info_parts.append(f"{theme.giftIcon} Gift Channel: <#{gift_channel[0]}>")
+                                    info_parts.append(f"{theme.giftIcon} Gift Channel: <#{gift_channel[0]}>\n")
                             
                             alliance_info.append(
                                 f"**{name}**\n" +
