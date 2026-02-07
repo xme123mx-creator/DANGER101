@@ -60,6 +60,31 @@ class RegisterSettingsView(discord.ui.View):
         except Exception as _:
             await interaction.response.send_message(f"{theme.deniedIcon} An error occurred while disabling registration.", ephemeral=True)
 
+    @discord.ui.button(
+        label="Edit Settings",
+        emoji=f"{theme.editListIcon}",
+        style=discord.ButtonStyle.primary,
+        custom_id="edit_register_settings",
+        row=1
+    )
+    async def edit_settings_button(self, interaction: discord.Interaction, button: discord.ui.Button):
+        try:
+            conn = sqlite3.connect("db/settings.sqlite")
+            cursor = conn.cursor()
+            cursor.execute("SELECT enabled FROM register_settings WHERE rowid = 1")
+            result = cursor.fetchone()
+            conn.close()
+            
+            status = "Enabled" if result and result[0] else "Disabled"
+            await interaction.response.send_message(
+                f"{theme.editListIcon} **Current Registration Status:** {status}\n\n"
+                f"Use the Enable/Disable buttons to change the setting.",
+                ephemeral=True
+            )
+        except Exception as e:
+            print(f"Error viewing settings: {e}")
+            await interaction.response.send_message(f"{theme.deniedIcon} An error occurred while viewing settings.", ephemeral=True)
+
 class Register(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
