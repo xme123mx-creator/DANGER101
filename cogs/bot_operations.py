@@ -1449,7 +1449,7 @@ class ControlSettingsView(discord.ui.View):
                 ephemeral=True
             )
         except Exception as e:
-            print(f"Error showing edit settings: {e}")
+            print(f"Error showing view settings: {e}")
             await interaction.response.send_message(f"{theme.deniedIcon} An error occurred.", ephemeral=True)
     
     async def update_view(self, interaction: discord.Interaction):

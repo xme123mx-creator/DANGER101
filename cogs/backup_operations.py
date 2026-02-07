@@ -422,7 +422,7 @@ class BackupView(discord.ui.View):
             conn.close()
             
             if result:
-                password_masked = "•" * len(result[0])
+                password_masked = "••••••••"  # Fixed-length mask for security
                 status_msg = f"**Current Password:** {password_masked}\n\nUse 'Set Password' to change it."
             else:
                 status_msg = "**No password set**\n\nYour backups are not encrypted. Use 'Set Password' to add protection."
