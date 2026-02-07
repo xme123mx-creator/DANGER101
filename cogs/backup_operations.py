@@ -412,8 +412,8 @@ class BackupView(discord.ui.View):
         modal = BackupPasswordModal(self.cog)
         await interaction.response.send_modal(modal)
 
-    @discord.ui.button(label="Edit Password", emoji=f"{theme.editListIcon}", style=discord.ButtonStyle.primary, row=0)
-    async def edit_password(self, interaction: discord.Interaction, button: discord.ui.Button):
+    @discord.ui.button(label="View Password Status", emoji=f"{theme.editListIcon}", style=discord.ButtonStyle.primary, row=0)
+    async def view_password(self, interaction: discord.Interaction, button: discord.ui.Button):
         try:
             conn = sqlite3.connect(self.cog.db_path)
             cursor = conn.cursor()

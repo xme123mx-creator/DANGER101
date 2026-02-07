@@ -1415,16 +1415,16 @@ class ControlSettingsView(discord.ui.View):
             self.notify_button.callback = self.toggle_notifications
             self.add_item(self.notify_button)
 
-        # Edit Settings button - only shown if alliance is selected
+        # View Settings button - only shown if alliance is selected
         if self.selected_alliance:
-            self.edit_button = discord.ui.Button(
-                label="Edit Settings",
+            self.view_button = discord.ui.Button(
+                label="View Settings",
                 style=discord.ButtonStyle.primary,
                 emoji=f"{theme.editListIcon}",
                 row=1
             )
-            self.edit_button.callback = self.show_edit_settings
-            self.add_item(self.edit_button)
+            self.view_button.callback = self.show_view_settings
+            self.add_item(self.view_button)
 
         # Back button
         self.back_button = discord.ui.Button(
@@ -1436,7 +1436,7 @@ class ControlSettingsView(discord.ui.View):
         self.back_button.callback = self.back_to_bot_operations
         self.add_item(self.back_button)
     
-    async def show_edit_settings(self, interaction: discord.Interaction):
+    async def show_view_settings(self, interaction: discord.Interaction):
         """Show current settings for the selected alliance"""
         try:
             alliance_name = next((name for aid, name in self.alliances if aid == self.selected_alliance), "Unknown")

@@ -61,13 +61,13 @@ class RegisterSettingsView(discord.ui.View):
             await interaction.response.send_message(f"{theme.deniedIcon} An error occurred while disabling registration.", ephemeral=True)
 
     @discord.ui.button(
-        label="Edit Settings",
+        label="View Settings",
         emoji=f"{theme.editListIcon}",
         style=discord.ButtonStyle.primary,
-        custom_id="edit_register_settings",
+        custom_id="view_register_settings",
         row=1
     )
-    async def edit_settings_button(self, interaction: discord.Interaction, button: discord.ui.Button):
+    async def view_settings_button(self, interaction: discord.Interaction, button: discord.ui.Button):
         try:
             conn = sqlite3.connect("db/settings.sqlite")
             cursor = conn.cursor()
