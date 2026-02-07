@@ -412,6 +412,29 @@ class BackupView(discord.ui.View):
         modal = BackupPasswordModal(self.cog)
         await interaction.response.send_modal(modal)
 
+    @discord.ui.button(label="View Password Status", emoji=f"{theme.editListIcon}", style=discord.ButtonStyle.primary, row=0)
+    async def view_password(self, interaction: discord.Interaction, button: discord.ui.Button):
+        try:
+            conn = sqlite3.connect(self.cog.db_path)
+            cursor = conn.cursor()
+            cursor.execute("SELECT backup_password FROM backup_passwords WHERE discord_id = ?", (str(interaction.user.id),))
+            result = cursor.fetchone()
+            conn.close()
+            
+            if result:
+                password_masked = "••••••••"  # Fixed-length mask for security
+                status_msg = f"**Current Password:** {password_masked}\n\nUse 'Set Password' to change it."
+            else:
+                status_msg = "**No password set**\n\nYour backups are not encrypted. Use 'Set Password' to add protection."
+            
+            await interaction.response.send_message(
+                f"{theme.editListIcon} **Password Status**\n\n{status_msg}",
+                ephemeral=True
+            )
+        except Exception as e:
+            print(f"Error viewing password: {e}")
+            await interaction.response.send_message(f"{theme.deniedIcon} An error occurred while viewing password status.", ephemeral=True)
+
     @discord.ui.button(label="Create Backup", emoji=f"{theme.saveIcon}", style=discord.ButtonStyle.success, row=0)
     async def create_backup(self, interaction: discord.Interaction, button: discord.ui.Button):
         # Show choice between DM and local save

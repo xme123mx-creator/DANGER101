@@ -2,7 +2,7 @@
 
 Whiteout Survival Discord Bot that supports alliance management, event reminders and attendance tracking, gift code redemption, minister appointment planning and more. This bot is free, open source and self-hosted.
 
-**This is the actively maintained and improved version of the original bot that was created and soon abandoned by Reloisback.**
+**DANGER Edition - DC= DANGER_600**
 
 ## 🚀 Getting Started
 
