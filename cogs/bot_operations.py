@@ -1415,6 +1415,17 @@ class ControlSettingsView(discord.ui.View):
             self.notify_button.callback = self.toggle_notifications
             self.add_item(self.notify_button)
 
+        # Edit Settings button - only shown if alliance is selected
+        if self.selected_alliance:
+            self.edit_button = discord.ui.Button(
+                label="Edit Settings",
+                style=discord.ButtonStyle.primary,
+                emoji=f"{theme.editListIcon}",
+                row=1
+            )
+            self.edit_button.callback = self.show_edit_settings
+            self.add_item(self.edit_button)
+
         # Back button
         self.back_button = discord.ui.Button(
             label="Back",
@@ -1424,6 +1435,22 @@ class ControlSettingsView(discord.ui.View):
         )
         self.back_button.callback = self.back_to_bot_operations
         self.add_item(self.back_button)
+    
+    async def show_edit_settings(self, interaction: discord.Interaction):
+        """Show current settings for the selected alliance"""
+        try:
+            alliance_name = next((name for aid, name in self.alliances if aid == self.selected_alliance), "Unknown")
+            
+            await interaction.response.send_message(
+                f"{theme.editListIcon} **Current Settings for {alliance_name}**\n\n"
+                f"Auto-Removal: {'Enabled' if self.auto_remove else 'Disabled'}\n"
+                f"Notifications: {'Enabled' if self.notify_on_transfer else 'Disabled'}\n\n"
+                f"Use the buttons above to toggle these settings.",
+                ephemeral=True
+            )
+        except Exception as e:
+            print(f"Error showing edit settings: {e}")
+            await interaction.response.send_message(f"{theme.deniedIcon} An error occurred.", ephemeral=True)
     
     async def update_view(self, interaction: discord.Interaction):
         """Update the embed and view based on current state"""
