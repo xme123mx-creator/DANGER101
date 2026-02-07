@@ -6,19 +6,19 @@ class SupportOperations(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    async def show_support_menu(self, interaction: discord.Interaction):
-        support_menu_embed = discord.Embed(
-            title=f"{theme.targetIcon} Support Operations",
-            description=(
-                f"Please select an operation:\n\n"
-                f"**Available Operations**\n"
-                f"{theme.upperDivider}\n"
-                f"{theme.editListIcon} **Request Support**\n"
-                f"└ Get help and support\n\n"
-                f"{theme.infoIcon} **About Project**\n"
-                f"└ Project information\n"
-                f"{theme.lowerDivider}"
-            ),
+@discord.ui.button(
+    label="About Project",
+    emoji=f"{theme.infoIcon}",
+    style=discord.ButtonStyle.primary,
+    custom_id="about_project"
+)
+async def about_project_button(self, interaction: discord.Interaction, button: discord.ui.Button):
+    about_embed = discord.Embed(
+        title=f"{theme.infoIcon} About Whiteout Project",
+        description=(
+            f"**Open Source Bot**\n"
+            f"{theme.upperDivider}\n"
+            f"This is an open source Discord bot..."
             color=theme.emColor1
         )
 
